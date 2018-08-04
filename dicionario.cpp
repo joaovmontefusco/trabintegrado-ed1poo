@@ -13,7 +13,14 @@ using namespace std;
 //e importa um Dicionario de um arquivo .txt
 Dicionario::Dicionario(){
     mudou = false;
-    importarDicionario();
+    
+    //Entra no tratamento de exceção para ver se o arquivo está vazio
+    try{
+        importarDicionario();
+    }
+    catch(const char *e){
+        cout << e << endl;
+    }
 }
 
 Dicionario::~Dicionario(){
@@ -46,6 +53,11 @@ void Dicionario::importarDicionario(){
     string temp;
     ifstream arquivo;
     arquivo.open("dic.txt");
+    
+    //Tratamento de exceção: se o arquivo importado estiver vazio
+    if(arquivo.eof()){
+        throw "Arquivo vazio";
+    }
 
     while(!arquivo.eof()){
         //getline(arquivo, buffer);
